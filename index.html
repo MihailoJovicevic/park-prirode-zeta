@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/PPZeta_KO_2.js"></script>
+        <script src="data/Zone_fixed_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[42.49891967726942,18.98142399617813],[42.626379076291336,19.26441929724354]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        var layer_GoogleMaps_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            opacity: 1.0,
+            attribution: '',
+        });
+        layer_GoogleMaps_0;
+        var layer_GoogleSatellite_1 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            opacity: 1.0,
+            attribution: '',
+        });
+        layer_GoogleSatellite_1;
+        map.addLayer(layer_GoogleSatellite_1);
+        function pop_PPZeta_KO_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SREZ'] !== null ? Autolinker.link(String(feature.properties['SREZ'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KO'] !== null ? Autolinker.link(String(feature.properties['KO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['BROJ'] !== null ? Autolinker.link(String(feature.properties['BROJ'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PODBROJ'] !== null ? Autolinker.link(String(feature.properties['PODBROJ'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['IND'] !== null ? Autolinker.link(String(feature.properties['IND'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GID'] !== null ? Autolinker.link(String(feature.properties['GID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['INDGID'] !== null ? Autolinker.link(String(feature.properties['INDGID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Number'] !== null ? Autolinker.link(String(feature.properties['Number'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SubNumber'] !== null ? Autolinker.link(String(feature.properties['SubNumber'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>layer</strong><br />' + (feature.properties['layer'] !== null ? Autolinker.link(String(feature.properties['layer'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['path'] !== null ? Autolinker.link(String(feature.properties['path'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PPZeta_KO_2_0(feature) {
+            switch(String(feature.properties['layer'])) {
+                case 'Bandici':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(232,232,232,0.5098039215686274)',
+            }
+                    break;
+                case 'Bare':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(228,228,227,0.5254901960784314)',
+            }
+                    break;
+                case 'Cerovice':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(224,224,222,0.5411764705882353)',
+            }
+                    break;
+                case 'Crnci':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(219,219,217,0.5568627450980392)',
+            }
+                    break;
+                case 'Curcici':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,215,212,0.5725490196078431)',
+            }
+                    break;
+                case 'Curilac':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(210,210,207,0.5882352941176471)',
+            }
+                    break;
+                case 'Danilovgrad':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(206,206,202,0.6039215686274509)',
+            }
+                    break;
+                case 'Glavica':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(202,202,197,0.615686274509804)',
+            }
+                    break;
+                case 'Glizica':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(197,197,193,0.6313725490196078)',
+            }
+                    break;
+                case 'Gorica':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(193,193,188,0.6470588235294118)',
+            }
+                    break;
+                case 'Grbe':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(188,188,183,0.6627450980392157)',
+            }
+                    break;
+                case 'Grlic':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(184,184,178,0.6784313725490196)',
+            }
+                    break;
+                case 'Jastreb':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(180,180,173,0.6941176470588235)',
+            }
+                    break;
+                case 'Jelenak':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(175,175,168,0.7098039215686275)',
+            }
+                    break;
+                case 'Kosic':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(171,171,163,0.7254901960784313)',
+            }
+                    break;
+                case 'Kujava':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(167,167,158,0.7411764705882353)',
+            }
+                    break;
+                case 'Martinici':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(162,162,153,0.7568627450980392)',
+            }
+                    break;
+                case 'Novo selo':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(158,158,148,0.7725490196078432)',
+            }
+                    break;
+                case 'Pazici':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(153,153,143,0.788235294117647)',
+            }
+                    break;
+                case 'Baloci':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(149,149,138,0.803921568627451)',
+            }
+                    break;
+                case 'Rogami':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(145,145,133,0.8156862745098039)',
+            }
+                    break;
+                case 'Stanjevica rupa':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(140,140,128,0.8313725490196079)',
+            }
+                    break;
+                case 'Tolosi':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(136,136,123,0.8470588235294118)',
+            }
+                    break;
+                case 'Velje Brdo':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(131,131,118,0.8627450980392157)',
+            }
+                    break;
+                case 'Podkraj':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(127,127,113,0.8784313725490196)',
+            }
+                    break;
+                case 'Poglavice':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(123,123,108,0.8941176470588236)',
+            }
+                    break;
+                case 'Rzista':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(118,118,103,0.9098039215686274)',
+            }
+                    break;
+                case 'Slap':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(114,114,98,0.9254901960784314)',
+            }
+                    break;
+                case 'Spuz':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(109,109,93,0.9411764705882353)',
+            }
+                    break;
+                case 'Vrela':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(105,105,88,0.9568627450980393)',
+            }
+                    break;
+                case 'Zagarac':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(101,101,83,0.9725490196078431)',
+            }
+                    break;
+                case 'Zagorak':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(96,96,78,0.9882352941176471)',
+            }
+                    break;
+                case 'Zagreda':
+                    return {
+                pane: 'pane_PPZeta_KO_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(92,92,73,1.0)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_PPZeta_KO_2');
+        map.getPane('pane_PPZeta_KO_2').style.zIndex = 402;
+        map.getPane('pane_PPZeta_KO_2').style['mix-blend-mode'] = 'normal';
+        var layer_PPZeta_KO_2 = new L.geoJson(json_PPZeta_KO_2, {
+            attribution: '',
+            pane: 'pane_PPZeta_KO_2',
+            onEachFeature: pop_PPZeta_KO_2,
+            style: style_PPZeta_KO_2_0,
+        });
+        bounds_group.addLayer(layer_PPZeta_KO_2);
+        function pop_Zone_fixed_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? Autolinker.link(String(feature.properties['id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ime</th>\
+                        <td>' + (feature.properties['ime'] !== null ? Autolinker.link(String(feature.properties['ime'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AREA'] !== null ? Autolinker.link(String(feature.properties['AREA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">area km2</th>\
+                        <td>' + (feature.properties['area km2'] !== null ? Autolinker.link(String(feature.properties['area km2'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Zone_fixed_3_0(feature) {
+            switch(String(feature.properties['ime'])) {
+                case 'I ZONA ZASTITE':
+                    return {
+                pane: 'pane_Zone_fixed_3',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(228,69,66,0.5450980392156862)',
+            }
+                    break;
+                case 'II ZONA ZASTITE':
+                    return {
+                pane: 'pane_Zone_fixed_3',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(83,210,229,0.5568627450980392)',
+            }
+                    break;
+                case 'III ZONA ZASTITE':
+                    return {
+                pane: 'pane_Zone_fixed_3',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(23,210,101,0.5568627450980392)',
+            }
+                    break;
+                case 'ZONA IZVAN PARKA':
+                    return {
+                pane: 'pane_Zone_fixed_3',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(251,229,19,0.47058823529411764)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Zone_fixed_3');
+        map.getPane('pane_Zone_fixed_3').style.zIndex = 403;
+        map.getPane('pane_Zone_fixed_3').style['mix-blend-mode'] = 'normal';
+        var layer_Zone_fixed_3 = new L.geoJson(json_Zone_fixed_3, {
+            attribution: '',
+            pane: 'pane_Zone_fixed_3',
+            onEachFeature: pop_Zone_fixed_3,
+            style: style_Zone_fixed_3_0,
+        });
+        bounds_group.addLayer(layer_Zone_fixed_3);
+        map.addLayer(layer_Zone_fixed_3);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Zone_fixed<br /><table><tr><td style="text-align: center;"><img src="legend/Zone_fixed_3_IZONAZASTITE0.png" /></td><td>I ZONA ZASTITE</td></tr><tr><td style="text-align: center;"><img src="legend/Zone_fixed_3_IIZONAZASTITE1.png" /></td><td>II ZONA ZASTITE</td></tr><tr><td style="text-align: center;"><img src="legend/Zone_fixed_3_IIIZONAZASTITE2.png" /></td><td>III ZONA ZASTITE</td></tr><tr><td style="text-align: center;"><img src="legend/Zone_fixed_3_ZONAIZVANPARKA3.png" /></td><td>ZONA IZVAN PARKA</td></tr></table>': layer_Zone_fixed_3,'PP Zeta_KO<br /><table><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Bandici0.png" /></td><td>Bandici</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Bare1.png" /></td><td>Bare</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Cerovice2.png" /></td><td>Cerovice</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Crnci3.png" /></td><td>Crnci</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Curcici4.png" /></td><td>Curcici</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Curilac5.png" /></td><td>Curilac</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Danilovgrad6.png" /></td><td>Danilovgrad</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Glavica7.png" /></td><td>Glavica</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Glizica8.png" /></td><td>Glizica</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Gorica9.png" /></td><td>Gorica</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Grbe10.png" /></td><td>Grbe</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Grlic11.png" /></td><td>Grlic</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Jastreb12.png" /></td><td>Jastreb</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Jelenak13.png" /></td><td>Jelenak</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Kosic14.png" /></td><td>Kosic</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Kujava15.png" /></td><td>Kujava</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Martinici16.png" /></td><td>Martinici</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Novoselo17.png" /></td><td>Novo selo</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Pazici18.png" /></td><td>Pazici</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Baloci19.png" /></td><td>Baloci</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Rogami20.png" /></td><td>Rogami</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Stanjevicarupa21.png" /></td><td>Stanjevica rupa</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Tolosi22.png" /></td><td>Tolosi</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_VeljeBrdo23.png" /></td><td>Velje Brdo</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Podkraj24.png" /></td><td>Podkraj</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Poglavice25.png" /></td><td>Poglavice</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Rzista26.png" /></td><td>Rzista</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Slap27.png" /></td><td>Slap</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Spuz28.png" /></td><td>Spuz</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Vrela29.png" /></td><td>Vrela</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Zagarac30.png" /></td><td>Zagarac</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Zagorak31.png" /></td><td>Zagorak</td></tr><tr><td style="text-align: center;"><img src="legend/PPZeta_KO_2_Zagreda32.png" /></td><td>Zagreda</td></tr></table>': layer_PPZeta_KO_2,"Google Satellite": layer_GoogleSatellite_1,"Google Maps": layer_GoogleMaps_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_PPZeta_KO_2.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['layer'] !== null?String('<div style="color: #000000; font-size: 10pt; font-family: \'AppleGothic\', sans-serif;">' + layer.feature.properties['layer']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_PPZeta_KO_2'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_PPZetaKO_2]);
+        map.on("zoomend", function(){
+            resetLabels([layer_PPZetaKO_2]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_PPZetaKO_2]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_PPZetaKO_2]);
+        });
+        </script>
+    </body>
+</html>
